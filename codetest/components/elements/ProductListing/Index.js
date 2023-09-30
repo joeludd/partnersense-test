@@ -1,36 +1,26 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import Link from "next/link";
 import { Dialog, Disclosure, Menu, Popover, Tab, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import * as Constants from '../../../data/constants';
-
-
-
-const sortOptions = Constants.sortOptions;
-
-const filters = Constants.filters;
-
-const products = Constants.products;
-
-
-
+import { CurrencyContext } from '../../../pages/_app';
 
 export default function ProductListing() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+  const sortOptions = Constants.sortOptions;
+  const filters = Constants.filters;
+  const products = Constants.products;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
-
- 
-
+  const currency = useContext(CurrencyContext)
 
   return (
     <div className="bg-gray-50">
-    
-
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -242,7 +232,7 @@ export default function ProductListing() {
 
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
                 {products.map((product) => (
-                   <Link href="/products/[PDP]" as={`/products/${product.id}`}>
+                   <Link key={product.id} href="/products/[PDP]" as={`/products/${product.id}`}>
                   <a key={product.id} href={product.href} className="group">
                     <div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-w-2 sm:aspect-h-3">
                       <img
@@ -253,9 +243,9 @@ export default function ProductListing() {
                     </div>
                     <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
                       <h3>{product.name}</h3>
-                      <p>{product.price}</p>
+                      <p>{currency} {product.price}</p>
                     </div>
-                    <p className="mt-1 text-sm italic text-gray-500">{product.name}</p>
+                    <p className="mt-1 text-sm italic text-gray-500">{product.descriptionShort}</p>
                   </a>
                   </Link>
                 ))}

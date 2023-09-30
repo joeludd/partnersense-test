@@ -6,11 +6,9 @@ import Link from "next/link";
 
 
 export default function Navbar() {
-  const { totalItems } = useCart();
+  const { totalItems, isEmpty } = useCart();
   const currencies = ['SEK', 'NOK', 'EUR']
   const navigation = {
-  
-
     categories: [
       {
         name: 'Women',
@@ -81,8 +79,8 @@ export default function Navbar() {
   
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
-  
   }
+  
   return (
     <>
     <div>
@@ -446,7 +444,7 @@ export default function Navbar() {
                         className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{totalItems}</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{isEmpty ? "" : totalItems}</span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
                     </Link>

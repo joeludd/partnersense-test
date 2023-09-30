@@ -1,14 +1,13 @@
-import ProductListing from '../components/elements/productListing/'
+import ProductListing from '../components/elements/ProductListing/Index'
 import Hero from "../components/elements/Hero/Index"
 import * as Constants from '../data/constants'
 
 export default function Home() {
-
   return (
     <>
-        <Hero/>
-        <ProductListing/>
-        </>
+      <Hero/>
+      <ProductListing/>
+    </>
   )
 }
 
